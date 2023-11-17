@@ -114,3 +114,48 @@ exit();
 ?>
 
 
+
+<!-- JavaScript for handling form functionalities -->
+<script>
+
+
+    function showInventoryForm(action) {
+        if (action === 'add') {
+            // Show the form for adding a new inventory item
+            const itemName = prompt('Enter item name:');
+            const quantity = prompt('Enter quantity:');
+            
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'server.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Handle the server response if needed
+                    console.log(xhr.responseText);
+                }
+            };
+            
+            xhr.send(`action=addInventory&itemName=${itemName}&quantity=${quantity}`);
+        }
+    }
+
+    function showLoginHistoryForm() {
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'server.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the server response and display login history
+                alert(xhr.responseText);
+            }
+        };
+        
+        xhr.send('action=fetchLoginHistory');
+    }
+</script>
+
+
